@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="max-width: 800px; margin-top: 20px;">
+    <h2>Messages - Select a Contact</h2>
+    <div class="card-list">
+        {% for contact in contacts %}
+        <div class="card" style="padding: 15px; border: 1px solid #ddd; margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h4 style="margin: 0;">{{ contact.name }}</h4>
+                <span class="badge" style="background: #eee; padding: 2px 8px; border-radius: 4px; font-size: 0.8em;">{{ contact.role|capitalize }}</span>
+            </div>
+            <a href="{{ url_for('chat.room', user_id=contact.id) }}" class="btn btn-primary" style="text-decoration: none; background: #007bff; color: white; padding: 8px 16px; border-radius: 5px;">Chat</a>
+        </div>
+        {% else %}
+        <p>No contacts available for your role yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

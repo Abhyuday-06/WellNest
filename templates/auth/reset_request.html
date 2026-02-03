@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="content-section" style="max-width: 500px; margin: 50px auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4" style="text-align: center; color: #333;">Reset Password</legend>
+            <div class="form-group" style="margin-bottom: 20px;">
+                {{ form.email.label(class="form-control-label") }}
+                {% if form.email.errors %}
+                    {{ form.email(class="form-control is-invalid", style="width: 100%; padding: 10px; border: 1px solid red; border-radius: 5px;") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                            <span style="color: red;">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.email(class="form-control", style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;") }}
+                {% endif %}
+            </div>
+        </fieldset>
+        <div class="form-group" style="text-align: center;">
+            {{ form.submit(class="btn btn-outline-info", style="background-color: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;") }}
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,12 +1,20 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SelectField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, Length
-from models import db
 
 class LoginForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email()])
     password = PasswordField("Password", validators=[DataRequired()])
     submit = SubmitField("Login")
+
+class RequestResetForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Request Password Reset')
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Reset Password')
 
 class SignupForm(FlaskForm):
     name = StringField(
@@ -27,10 +35,9 @@ class SignupForm(FlaskForm):
     role = SelectField(
         'Role',
         choices=[
-            ('user', 'User'),
+            ('student', 'Student'),
             ('parent', 'Parent'),
             ('professional', 'Mental Health Professional'),
-            ('student', 'Student'),
             ('teacher', 'Teacher'),
             ('counselor', 'School Counselor')
         ],
@@ -57,3 +64,7 @@ class SignupForm(FlaskForm):
         render_kw={"placeholder": "Counselor license or certification"}
     )
     submit = SubmitField('Sign Up')
+
+    def validate_role(self, role):
+        # Optional: Add custom validation logic here if needed
+        pass

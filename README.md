@@ -10,7 +10,6 @@ Mental health is a critical concern for students, yet it often goes unnoticed un
 
 
 ## Concept Map
-<!-- Rephrase Survey module, destroy User Interface, rephrase User Interface(add general survey metrix and option to interact with counsellors) -->
 1. **Survey Module**: Collects data from students via privacy-focused surveys by implementing AES encryption. 
 2. **Analysis Engine**: A machine learning model processes survey data to identify patterns and risk levels.
 3. **Action Module**: Flags high-risk cases and informs parents/guardians as well as concerned school authorities to prevent further escalation.
@@ -18,17 +17,21 @@ Mental health is a critical concern for students, yet it often goes unnoticed un
 5. **Security and Privacy**: Implements encryption to protect user data and ensure anonymity.
 
 ## Tech Stack
-<!-- add googapi calendar/meet/gmail, include kaggle datasets links later, possible add use of each tool  -->
-- Flask
-- SQLAlchemy
-- Google API (Integration with Google Calendar and Meet)
-- WTForms
-- Matplotlib/Seaborn
-- Scikit-learn
-- Kaggle datasets
+- **Backend**: Flask, SQLAlchemy, Flask-Login, Flask-Mail
+- **Frontend**: HTML5, CSS3, JavaScript, Jinja2 Templates
+- **AI/ML**: Scikit-learn, Pandas, Natural Language Toolkit (NLTK)
+- **Integrations**: Google Calendar API (Appointment Scheduling)
+- **Security**: AES (Concept), Werkzeug Security, ItsDangerous
+
+## Key Features
+1. **Role-Based Access**: Specialized dashboards for Students, Teachers, Parents, Professionals, and Counselors.
+2. **AI Assessment**: Machine learning models analyze survey data to identify mental health risks.
+3. **Appointment System**: Integrated Google Calendar scheduling to book sessions with counselors.
+4. **Secure Authentication**: User sessions managed via Flask-Login with secure Password Reset functionality.
+5. **Wellness Reports**: Monthly visualizations of mental health trends.
+6. **Privacy First**: Focus on anonymity and encrypted data handling.
 
 ## Novelty
-<!-- add free sessions as a novelty -->
 1. **Anonymity**: Unlike existing platforms such as BetterHelp, WellNest ensures user anonymity in public and private interactions.
 2. **Proactive Support**: By analyzing surveys with machine learning, WellNest identifies potential risks before they escalate.
 3. **Encryption-First Approach**: Prioritizing data security to build trust among students.

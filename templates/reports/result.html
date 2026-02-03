@@ -2,8 +2,22 @@
 
 {% block content %}
 <div class="container">
-    <h1>Quiz Results</h1>
-    <p>Status: {{ result['status'] }}</p>
-    <p>Recommendation: {{ result['recommendation'] }}</p>
+    <h1>Your Mental Health Analysis</h1>
+    
+    <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-top: 20px;">
+        <h2 style="color: {% if result['status'] == 'High Risk' %}red{% elif result['status'] == 'Moderate Risk' %}orange{% else %}green{% endif %};">
+            {{ result['status'] }}
+        </h2>
+        <p><strong>Score:</strong> {{ result['score'] | round(2) }}</p>
+        
+        <div style="margin-top: 15px; padding: 15px; border-left: 5px solid #007bff; background: white;">
+            <h4>Recommendation</h4>
+            <p>{{ result['recommendation'] }}</p>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <a href="{{ url_for('dashboard.index') }}" class="btn btn-secondary">Back to Dashboard</a>
+        </div>
+    </div>
 </div>
 {% endblock %}

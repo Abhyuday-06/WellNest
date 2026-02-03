@@ -1,5 +1,33 @@
-.env# Ignore __pycache__ directories
-__pycache__/
+# Environments
+.env
+venv/
+env/
+.venv/
 
-# Ignore all log files
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Database
+instance/
+*.db
+*.sqlite3
+
+# Logs
+logs/
 *.log
+
+# Google Credentials
+credentials.json
+token.json
+client_secret_*.json
+
+# IDEs
+.vscode/
+.idea/
+
+# Distribution
+dist/
+build/
+*.egg-info/

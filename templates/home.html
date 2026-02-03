@@ -1,39 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | WellNest</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-</head>
-<body>
-    <header class="bg-primary text-white text-center py-4">
-        <h1 class="animated fadeInDown">Welcome to <span class="font-weight-bold">WellNest</span></h1>
-        <nav class="mt-3">
-            <a href="{{ url_for('auth.login') }}" class="btn btn-outline-light mx-2">Login</a>
-            <a href="{{ url_for('auth.signup') }}" class="btn btn-outline-light mx-2" style="background-color: white;color: black;">Sign Up</a>
-        </nav>
-    </header>
-    <main class="container my-5" style="background-color: #EFE3C2;">
-        <section class="text-center">
-            <h2 style="color: black;"><b>Prioritizing Your Mental Well-being</b></h2>
-            <p class="mt-4 animated fadeIn">At WellNest, we understand that mental health is fundamental to living a fulfilling life. Our comprehensive platform serves as your sanctuary for emotional wellness and personal growth.
-Whether you're seeking to enhance your daily mental wellness, looking for support during challenging times, or simply wanting to better understand yourself, WellNest provides the tools and guidance you need.
-            </p>
-            <!-- <button class="btn btn-primary mt-3 btn-lg animated pulse infinite">Learn More</button> -->
-        </section>
-    </main>
-    <footer class="bg-dark text-white text-center py-3">
-        <p>&copy; 2025 WellNest. All Rights Reserved.</p>
-    </footer>
+{% extends 'base.html' %}
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Custom JS -->
-    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
-</body>
-</html>
+{% block content %}
+<div class="landing-page">
+    <!-- Hero Section -->
+    <header class="hero" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 60px 20px; text-align: center; border-radius: 0 0 50% 50% / 4%;">
+        <div class="container">
+            <h1 style="font-size: 3.5rem; margin-bottom: 20px;">Your Mental Wellness Journey Starts Here</h1>
+            <p style="font-size: 1.2rem; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                WellNest provides AI-powered assessments, professional counseling, and a supportive community for students, parents, and educators.
+            </p>
+            <div>
+                {% if not current_user.is_authenticated %}
+                    <a href="{{ url_for('auth.signup') }}" class="btn" style="background: white; color: #764ba2; padding: 15px 30px; font-weight: bold; border-radius: 30px; text-decoration: none; margin-right: 15px;">Get Started</a>
+                    <a href="{{ url_for('auth.login') }}" class="btn" style="border: 2px solid white; color: white; padding: 13px 28px; font-weight: bold; border-radius: 30px; text-decoration: none;">Login</a>
+                {% else %}
+                    <a href="{{ url_for('dashboard.index') }}" class="btn" style="background: white; color: #764ba2; padding: 15px 30px; font-weight: bold; border-radius: 30px; text-decoration: none;">Go to Dashboard</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section class="features" style="padding: 60px 20px; text-align: center;">
+        <h2 style="margin-bottom: 50px; color: #333;">Why Choose WellNest?</h2>
+        <div class="feature-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+            <!-- Feature 1 -->
+            <div class="feature-card" style="flex: 1; min-width: 250px; max-width: 300px; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <div style="font-size: 3rem; margin-bottom: 15px; color: #667eea;">🧠</div>
+                <h3>AI Assessments</h3>
+                <p style="color: #666;">Confidential surveys analyzed by AI to detect early signs of stress or anxiety.</p>
+            </div>
+             <!-- Feature 2 -->
+             <div class="feature-card" style="flex: 1; min-width: 250px; max-width: 300px; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <div style="font-size: 3rem; margin-bottom: 15px; color: #667eea;">💬</div>
+                <h3>Private Chat</h3>
+                <p style="color: #666;">Securely communicate with school counselors and mental health professionals.</p>
+            </div>
+             <!-- Feature 3 -->
+             <div class="feature-card" style="flex: 1; min-width: 250px; max-width: 300px; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <div style="font-size: 3rem; margin-bottom: 15px; color: #667eea;">👪</div>
+                <h3>Parental Insights</h3>
+                <p style="color: #666;">Parents stay informed about their child's well-being with linked accounts.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Role Section -->
+    <section class="roles" style="background-color: #f9f9f9; padding: 60px 20px;">
+        <div class="container" style="max-width: 1000px; margin: 0 auto;">
+            <h2 style="text-align: center; margin-bottom: 40px; color: #333;">Designed for Everyone</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+                <div class="role-item">
+                    <h4 style="color: #667eea;">For Students</h4>
+                    <p>A safe space to express feelings, take quizzes, and reach out for help without fear of judgment.</p>
+                </div>
+                <div class="role-item">
+                    <h4 style="color: #667eea;">For Parents</h4>
+                    <p>Monitor your child's mental health trends and get alerts for critical issues instantly.</p>
+                </div>
+                <!-- <div class="role-item">
+                    <h4 style="color: #667eea;">For Educators</h4>
+                    <p>Tools to identify students in need and manage caseloads efficiently.</p>
+                </div> -->
+                <div class="role-item">
+                    <h4 style="color: #667eea;">For Counselors</h4>
+                    <p>Data-driven insights to prioritize support for high-risk students effectively.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .report-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px;
+    }
+    .report-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    .report-title {
+        font-size: 2.5em;
+        color: #2c3e50;
+        margin-bottom: 10px;
+    }
+    .report-date {
+        color: #7f8c8d;
+        font-size: 1.1em;
+    }
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        margin-bottom: 50px;
+    }
+    .stat-card {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        text-align: center;
+        border: 1px solid #eee;
+    }
+    .stat-value {
+        font-size: 3em;
+        font-weight: bold;
+        color: #2c3e50;
+        margin: 10px 0;
+    }
+    .stat-label {
+        color: #7f8c8d;
+        text-transform: uppercase;
+        font-size: 0.9em;
+        letter-spacing: 1px;
+    }
+    .highlight-red { color: #e74c3c; }
+    .highlight-green { color: #27ae60; }
+    .highlight-blue { color: #3498db; }
+    
+    .chart-placeholder {
+        background: #f8f9fa;
+        border: 2px dashed #dee2e6;
+        border-radius: 15px;
+        height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #adb5bd;
+        margin-bottom: 30px;
+    }
+    
+    .print-btn {
+        display: block;
+        margin: 40px auto 0;
+        padding: 15px 40px;
+        background: #2c3e50;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.1em;
+        cursor: pointer;
+        transition: opacity 0.3s;
+    }
+    .print-btn:hover {
+        opacity: 0.9;
+    }
+</style>
+
+<div class="report-container">
+    <div class="report-header">
+        <h1 class="report-title">Monthly Wellness Report</h1>
+        <p class="report-date">Generated on {{ now_date }}</p> 
+        {# Note: In a real app, pass 'now_date' from the route, or use JS #}
+        <script>
+            document.querySelector('.report-date').innerText = 'Generated on ' + new Date().toLocaleDateString();
+        </script>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-value highlight-blue">{{ stats.total }}</div>
+            <div class="stat-label">Total Assessments</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value highlight-red">{{ stats.high_risk }}</div>
+            <div class="stat-label">High Risk Cases</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value highlight-green">{{ stats.avg_score }}</div>
+            <div class="stat-label">Average Wellness Score</div>
+        </div>
+    </div>
+
+    <h2 style="color: #2c3e50; margin-bottom: 20px;">Trend Analysis</h2>
+    <div class="chart-placeholder">
+        <p>Wellness Trend Chart Visualization would appear here</p>
+    </div>
+
+    <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+        <h3 style="margin-top: 0;">Executive Summary</h3>
+        <p style="line-height: 1.6; color: #555;">
+            Over the past 30 days, we have processed <strong>{{ stats.total }}</strong> student assessments. 
+            The data indicates that <strong>{{ ((stats.high_risk / stats.total * 100) | round) if stats.total > 0 else 0 }}%</strong> 
+            of assessments flagged potential high-risk concerns required immediate attention. 
+            The average wellness score of <strong>{{ stats.avg_score }}</strong> suggests a 
+            {% if stats.avg_score > 35 %}
+                positive overall trend
+            {% elif stats.avg_score > 20 %}
+                moderate stress level environment
+            {% else %}
+                challenging environment requiring intervention
+            {% endif %}
+            among the student body.
+        </p>
+    </div>
+
+    <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+</div>
+{% endblock %}
